@@ -10,6 +10,10 @@ var users = require('./routes/users');
 var clueless = require('./routes/happybrowndog');
 
 
+var recognizeMic = require('watson-speech/speech-to-text/recognize-microphone');
+
+
+
 var app = express();
 
 // view engine setup
