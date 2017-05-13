@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var delivery = require('./routes/delivery');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/delivery', delivery);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -49,6 +51,7 @@ app.set('port', process.env.PORT || 3000)
 
 app.listen(app.get('port'), function() {
     console.log("Listening on " + app.get('port'));
+
 })
 
 
