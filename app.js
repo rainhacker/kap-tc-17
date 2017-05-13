@@ -8,6 +8,10 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+var recognizeMic = require('watson-speech/speech-to-text/recognize-microphone');
+
+
+
 var app = express();
 
 // view engine setup
