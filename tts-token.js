@@ -13,8 +13,8 @@ var ttsConfig = extend(
     {
         version: 'v1',
         url: 'https://stream.watsonplatform.net/text-to-speech/api',
-        username: process.env.TTS_USERNAME || 'mailkuldeepm@gmail.com',
-        password: process.env.TTS_PASSWORD || 'Kulu123#'
+        username: process.env.TTS_USERNAME || 'bf47d3a1-97c4-4fc3-bac4-d3ce472acf01',
+        password: process.env.TTS_PASSWORD || 'CqopFLJ46wKr'
     },
     vcapServices.getCredentials('text_to_speech')
 );

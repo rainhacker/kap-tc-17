@@ -18,6 +18,8 @@ var recognizeMic = require('watson-speech/speech-to-text/recognize-microphone');
 
 var app = express();
 
+app.use('/api/speech-to-text/', require('./stt-token.js'));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

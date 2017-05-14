@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+var server = require('http'),
+    url = require('url'),
+    path = require('path'),
+    fs = require('fs');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -22,6 +27,10 @@ router.post('/uploadFile', function (req,res,next) {
     uploadFile(req,res)
 })
 
+
+router.get('/voice2txt', function (req,res,next) {
+    res.render('vxt');
+})
 
 function uploadFile(request, response) {
 // parse a file upload
@@ -45,7 +54,7 @@ function uploadFile(request, response) {
         response.writeHead(200, getHeaders('Content-Type', 'application/json'));
 
         var fileName = file.split('path:')[1].split('\',')[0].split(dir)[1].toString().replace(/\\/g, '').replace(/\//g, '');
-        var fileURL = 'http://' + app.address + ':' + port + '/uploads/' + fileName;
+        var fileURL = 'http://localhost' + ':3000' + '/uploads/' + fileName;
 
         console.log('fileURL: ', fileURL);
         response.write(JSON.stringify({
@@ -54,5 +63,22 @@ function uploadFile(request, response) {
         response.end();
     });
 }
+function getHeaders(opt, val) {
+    try {
+        var headers = {};
+        headers["Access-Control-Allow-Origin"] = "https://secure.seedocnow.com";
+        headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+        headers["Access-Control-Allow-Credentials"] = true;
+        headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+        headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
 
+        if (opt) {
+            headers[opt] = val;
+        }
+
+        return headers;
+    } catch (e) {
+        return {};
+    }
+}
 module.exports = router;

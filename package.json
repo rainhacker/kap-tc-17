@@ -19,6 +19,9 @@
     "recordrtc": "^5.4.1",
     "recordrtc-nodejs": "^1.0.6",
     "serve-favicon": "~2.4.2",
+    "vcap_services": "^0.3.4",
+    "watson-developer-cloud": "^2.31.1",
+    "watson-html5-speech-recognition": "^0.6.6",
     "watson-speech": "^0.33.0",
     "wav": "^1.0.1"
   }
