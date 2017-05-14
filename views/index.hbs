@@ -1,18 +1,73 @@
 
-
 <h1>VFOOD</h1>
 <div>
+
 <p>Speak your order</p>
-    <form action="submit" method="POST">
+    <p id="recognizedText"></p>
+
+    <section>
         <fieldset>
             <legend></legend>
-            <P><input type="submit" name="submit" class="submitbutton" value="Speak"/></P>
+            <p><button id="button">Speak</button></p>
             <p>
                 <label class="general"></label>
-                <textarea name="comment" class="note" rows="3" cols="60" wrap="SOFT"></textarea>
+                <textarea id="comment" class="note" rows="3" cols="60" wrap="SOFT"></textarea>
             </p>
             <input type="submit" name="submit" class="submitbutton" value="Order"/>
             <input type="reset" name="reset" class="resetbutton" value="Clear"/> <span style="color:#EE2222"></span>
         </fieldset>
-    </form>
+    </section>
 </div>
+<!--
+
+    <h2>Press the 'mic' button and speak</h2>
+    <button id="button">mic</button>
+    <p id="recognizedText"></p>
+</section>
+-->
+
+<script src="speech.js"></script>
+
+<script style="display: hide;">
+    var speech = SpeechToText;
+    var activeSTT;
+    var message = ' ';
+    function listen() {
+        activeSTT = speech.listen({
+            onStart: function() {
+                console.log('onStart Speech event');
+            },
+            onResult: function(e) {
+                console.log('onResult Speech event', e.text);
+                message = e.text;
+                if (e.isFinal) {
+                    stopListening();
+                }
+            },
+            onError: function(e) {
+                console.log('onError Speech event', e);
+            },
+            onEnd: function(e) {
+                console.log('onEnd Speech event', e);
+                document.getElementById("comment").text = message;
+                stopListening();
+            }
+        });
+    }
+    function startListening() {
+        if (activeSTT) {
+            // do nothing, speech is active
+        } else if (speech.isSupported) {
+            listen();
+        } else {
+            alert('speech not supported by this browser');
+        }
+    }
+    function stopListening() {
+        if (activeSTT) {
+            activeSTT.stop();
+            activeSTT = null;
+        }
+    }
+    document.querySelector('#button').onclick = startListening;
+</script>
