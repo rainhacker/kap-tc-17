@@ -57,8 +57,10 @@ router.get('/recommend', function (req,res,next) {
 })
 
 router.post('/recommend', function (req,res,next) {
-    var lat = req.body.lat;
-    var lon = req.body.lon;
+    console.log('----------' + req);
+    
+    var lat = req.body.curr_lat;
+    var lon = req.body.curr_long;
     var txt = req.body.txt;
 
     var arr = txt.split("\\s");
