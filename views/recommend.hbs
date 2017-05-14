@@ -14,7 +14,7 @@
                     lat = position.coords.latitude;
                     document.getElementById('curr_long').value = lng;
                     document.getElementById('curr_lat').value = lat;
-                    document.getElementById("/recommend").submit();
+                    document.getElementById("recommend").submit();
                 }
             function showError(error) {
                 switch (error.code) {
@@ -34,7 +34,7 @@
             }
       </script>
  
-    <form action="/recommend" method="post">
+    <form action="/recommend" id="recommend" method="post">
        
         <input type="hidden" id="curr_long" name="curr_long">
         <input type="hidden" id="curr_lat" name="curr_lat">

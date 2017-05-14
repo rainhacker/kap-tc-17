@@ -8,16 +8,16 @@ foods.set("mexican","true");
 foods.set("indian","true");
 foods.set("pizza","true");
 foods.set("moroccan","true");
-foods.set("","true");
-foods.set("","true");
-foods.set("","true");
-foods.set("","true");
-foods.set("","true");
-foods.set("","true");
+foods.set("mediterranean","true");
+foods.set("chinese","true");
+foods.set("japanese","true");
+foods.set("korean","true");
+foods.set("australian","true");
+foods.set("american","true");
 
 var alcohol = new HashMap();
-map.set("","true");
-map.set("","true");
+alcohol.set("","true");
+alcohol.set("","true");
 
 
 
@@ -63,7 +63,7 @@ router.post('/recommend', function (req,res,next) {
     var lon = req.body.curr_long;
     var txt = req.body.txt;
 
-    var arr = txt.split("\\s");
+    var arr = txt.split(" ");
     var dollarVal ="";
     var cusines = []
     arr.forEach(function(value){
@@ -71,7 +71,7 @@ router.post('/recommend', function (req,res,next) {
         if(value.startsWith('$')) {
             dollarVal = value;
         } else {
-            if(map.has(value)) {
+            if(foods.has(value)) {
                 cusines.push(value);
             }
         }
