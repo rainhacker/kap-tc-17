@@ -61,7 +61,8 @@ router.get('/recommend', function (req,res,next) {
 router.post('/recommend', function (req,res,next) {    
     var lat = req.body.curr_lat;
     var lon = req.body.curr_long;
-    var txt = req.body.txt;
+
+    var txt = req.body.comment;
 
     var arr = txt.split(" ");
     var dollarVal ="";
