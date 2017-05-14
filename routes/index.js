@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var HashMap = require('hashmap');
+var request = require('request');
 
 var foods = new HashMap();
 foods.set("mexican","true");
@@ -16,8 +17,9 @@ foods.set("australian","true");
 foods.set("american","true");
 
 var alcohol = new HashMap();
-alcohol.set("","true");
-alcohol.set("","true");
+alcohol.set("beer","true");
+alcohol.set("wine","true");
+alcohol.set("liquor","true");
 
 
 
@@ -56,25 +58,55 @@ router.get('/recommend', function (req,res,next) {
     res.render('recommend');
 })
 
-router.post('/recommend', function (req,res,next) {
-    console.log('----------' + req);
-    
+router.post('/recommend', function (req,res,next) {    
     var lat = req.body.curr_lat;
     var lon = req.body.curr_long;
     var txt = req.body.txt;
 
     var arr = txt.split(" ");
     var dollarVal ="";
-    var cusines = []
+    var cusines = [];
+    var alcVal = "";
     arr.forEach(function(value){
         value = value.trim().toLowerCase();
         if(value.startsWith('$')) {
             dollarVal = value;
-        } else {
-            if(foods.has(value)) {
-                cusines.push(value);
-            }
+        } else if(foods.has(value)) {
+            cusines.push(value);
+        } else if(alcohol.has(value)) {
+            alcVal = value;        
         }
+
+    //long lat to address
+    var revgeocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lon;
+    console.log('getting address ' + revgeocodeUrl);
+    var addr = "";
+    request.get(revgeocodeUrl, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+                var respp = JSON.parse(body);    
+            addr = respp.results[0].formatted_address;            
+            console.log('address: '+addr);
+             //alcohol    
+        var alcUrl = 'https://www.delivery.com/api/data/search?search_type=alcohol&address=' + addr 
+           + '&section=' + alcVal
+           +'&order_time=ASAP&order_type=delivery&client_id=YzczMWQzMGYzNDg4NjM5YjVmYWJmMzhiNDU0MjA5YzI5';
+
+        request.get(alcUrl, function (error, response, body) {
+            console.log('alcUrl:' + alcUrl);   
+            if (!error && response.statusCode == 200) {
+                var respp = JSON.parse(body);
+                console.log(body);
+             }
+        });   
+
+         }
+    });   
+        
+
+       
+        //food...
+
+
     });
 
     console.log(cusines);
