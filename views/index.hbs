@@ -1,5 +1,11 @@
 
 <h1>VFOOD</h1>
+<script>
+    function clearFields() {
+
+        document.getElementById("comment").value = '';
+    }
+</script>
 <div>
 
 <p>Speak your order</p>
@@ -13,8 +19,10 @@
                 <label class="general"></label>
                 <textarea id="comment" class="note" rows="3" cols="60" wrap="SOFT"></textarea>
             </p>
+            <input type="submit" name="submit" class="submitbutton" value="Recommend"/>
             <input type="submit" name="submit" class="submitbutton" value="Order"/>
-            <input type="reset" name="reset" class="resetbutton" value="Clear"/> <span style="color:#EE2222"></span>
+            <input type="reset" name="reset" class="resetbutton" value="Clear" onclick="clearFields();"/>
+            <span style="color:#EE2222"></span>
         </fieldset>
     </section>
 </div>
