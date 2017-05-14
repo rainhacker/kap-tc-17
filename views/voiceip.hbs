@@ -1,9 +1,33 @@
+<!-- commits.js is useless for you! -->
+<script>
+    window.useThisGithubPath = 'muaz-khan/RecordRTC';
+</script>
+<script src="https://cdn.webrtc-experiment.com/commits.js" async></script>
+<script src="https://apis.google.com/js/client:plusone.js"></script>
 
+<!-- <script src="https://cdn.webrtc-experiment.com/getScreenId.js"></script> -->
+<script>
+    var chromeMediaSource = 'screen';
+    window.addEventListener('message', function(message) {
+        if(message.origin != 'https://www.webrtc-experiment.com') return;
+        chromeMediaSource = 'desktop';
+        if(typeof getScreenId == 'function' && !!message.data.sourceId) {
+            getScreenId(chromeMediaSource, message.data.sourceId);
+        }
+    });
+</script>
 <script>
     if (location.href.indexOf('file:') == 0) {
         document.write('<h1 style="color:red;">Please load this HTML file on HTTP or HTTPS.</h1>');
     }
 </script>
+<script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+<script src="https://cdn.webrtc-experiment.com/gif-recorder.js"></script>
+
+<!-- for Edge/FF/Chrome/Opera/etc. getUserMedia support -->
+<script src="https://cdn.webrtc-experiment.com/gumadapter.js"></script>
+<script src="https://cdn.webrtc-experiment.com/DetectRTC.js"> </script>
+
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="author" type="text/html" href="https://plus.google.com/+MuazKhan">
 <meta name="author" content="Muaz Khan">
@@ -32,7 +56,6 @@
     }
     button[disabled], input[disabled] { background: rgba(216, 205, 205, 0.2); border: 1px solid rgb(233, 224, 224);}
 </style>
-<body>
 <h1>RecordRTC to Node.js</h1>
 <p>
     <video></video>
@@ -50,7 +73,6 @@
     <button id="btn-stop-recording" disabled="">Stop Recording</button>
 </div>
 
-<script src="/node_modules/recordrtc/RecordRTC.js"> </script>
 
 <script>
     // fetching DOM references
