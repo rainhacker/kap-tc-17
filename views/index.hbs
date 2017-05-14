@@ -1,18 +1,128 @@
 
-
 <h1>VFOOD</h1>
+<script>
+    function clearFields() {
+        document.getElementById("comment").value = '';
+    }
+    function getLocation() {
+        event.preventDefault();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(setPosition, showError);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    function setPosition(position) {
+        var lng = position.coords.longitude,
+                lat = position.coords.latitude;
+        document.getElementById('curr_long').value = lng;
+        document.getElementById('curr_lat').value = lat;
+        document.getElementById("order").submit();
+    }
+    function showError(error) {
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                alert("Request for geolocation permission denied.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                alert("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                break;
+        }
+    }
+</script>
 <div>
+
+<!--
+        <form action="/recommend" id="recommend" method="post">
+
+        <input type="hidden" id="curr_long" name="curr_long">
+        <input type="hidden" id="curr_lat" name="curr_lat">
+
+        <input type="text" id="txt" name="txt" value="hardcoded I want beer" />
+        <input type="submit" value="Send message" onclick="getLocation()"/>
+
+    </form>
+-->
+
 <p>Speak your order</p>
-    <form action="submit" method="POST">
+    <p id="recognizedText"></p>
+
+    <section>
         <fieldset>
             <legend></legend>
-            <P><input type="submit" name="submit" class="submitbutton" value="Speak"/></P>
-            <p>
-                <label class="general"></label>
-                <textarea name="comment" class="note" rows="3" cols="60" wrap="SOFT"></textarea>
-            </p>
-            <input type="submit" name="submit" class="submitbutton" value="Order"/>
-            <input type="reset" name="reset" class="resetbutton" value="Clear"/> <span style="color:#EE2222"></span>
+            <p><button id="button">Speak</button></p>
+            <form action="/recommend" id="recommend" method="post">
+
+
+                <p><textarea id="comment" rows="3" cols="60" wrap="SOFT"></textarea></p>
+
+
+                <input type="submit" name="submit"  value="Recommend" onclick="getLocation();"/>
+
+                <input type="hidden" id="curr_long" name="curr_long">
+                <input type="hidden" id="curr_lat" name="curr_lat">
+
+                <input type="reset" name="reset" value="Clear" onclick="clearFields();"/>
+            </form>
+
+            <input type="submit" name="submit"  value="Order"/>
+
+
+            <span style="color:#EE2222"></span>
         </fieldset>
-    </form>
+    </section>
 </div>
+
+
+<script src="speech.js"></script>
+
+<script style="display: hide;">
+    var speech = SpeechToText;
+    var activeSTT;
+    var message = ' ';
+    function listen() {
+        activeSTT = speech.listen({
+            onStart: function() {
+                console.log('onStart Speech event');
+            },
+            onResult: function(e) {
+                console.log('onResult Speech event', e.text);
+                message = e.text;
+                if (e.isFinal) {
+                    stopListening();
+                }
+            },
+            onError: function(e) {
+                console.log('onError Speech event', e);
+            },
+            onEnd: function(e) {
+                console.log('onEnd Speech event', e);
+                document.getElementById("comment").value = message;
+                stopListening();
+            }
+        });
+    }
+    function startListening() {
+        if (activeSTT) {
+            // do nothing, speech is active
+        } else if (speech.isSupported) {
+            listen();
+        } else {
+            alert('speech not supported by this browser');
+        }
+    }
+    function stopListening() {
+        if (activeSTT) {
+            activeSTT.stop();
+            activeSTT = null;
+        }
+    }
+    document.querySelector('#button').onclick = startListening;
+</script>
