@@ -22,7 +22,6 @@ alcohol.set("wine","true");
 alcohol.set("liquor","true");
 
 
-
 var server = require('http'),
     url = require('url'),
     path = require('path'),
@@ -71,7 +70,11 @@ router.post('/recommend', function (req,res,next) {
     arr.forEach(function(value){
         value = value.trim().toLowerCase();
         if(value.startsWith('$')) {
-            dollarVal = value;
+            if(value <= 10) dollarVal = 1;
+            else if(value <= 20) dollarVal = 2;
+            else if(value <= 30) dollarVal = 3;
+            else if(value <= 50) dollarVal = 4;
+            else dollarVal = 5;
         } else if(foods.has(value)) {
             cusines.push(value);
         } else if(alcohol.has(value)) {
@@ -90,6 +93,7 @@ router.post('/recommend', function (req,res,next) {
              //alcohol    
         var alcUrl = 'https://www.delivery.com/api/data/search?search_type=alcohol&address=' + addr 
            + '&section=' + alcVal
+           +'&filter_price=' + dollarVal
            +'&order_time=ASAP&order_type=delivery&client_id=YzczMWQzMGYzNDg4NjM5YjVmYWJmMzhiNDU0MjA5YzI5';
 
         request.get(alcUrl, function (error, response, body) {
