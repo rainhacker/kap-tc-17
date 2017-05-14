@@ -9,9 +9,11 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var users = require('./routes/videoip');
 
+var delivery = require('./routes/delivery');
+var clueless = require('./routes/happybrowndog');
+
 
 var recognizeMic = require('watson-speech/speech-to-text/recognize-microphone');
-
 
 
 var app = express();
@@ -32,6 +34,8 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/videoip', users);
 
+app.use('/delivery', delivery);
+app.use('/clueless', clueless);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -57,6 +61,7 @@ app.set('port', process.env.PORT || 3000)
 
 app.listen(app.get('port'), function() {
     console.log("Listening on " + app.get('port'));
+
 })
 
 
