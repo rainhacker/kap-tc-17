@@ -1,7 +1,25 @@
 var express = require('express');
 var router = express.Router();
 
-//var map = new HashMap();
+var HashMap = require('hashmap');
+
+var foods = new HashMap();
+foods.set("mexican","true");
+foods.set("indian","true");
+foods.set("pizza","true");
+foods.set("moroccan","true");
+foods.set("mediterranean","true");
+foods.set("chinese","true");
+foods.set("japanese","true");
+foods.set("korean","true");
+foods.set("australian","true");
+foods.set("american","true");
+
+var alcohol = new HashMap();
+alcohol.set("","true");
+alcohol.set("","true");
+
+
 
 var server = require('http'),
     url = require('url'),
@@ -39,14 +57,31 @@ router.get('/recommend', function (req,res,next) {
 })
 
 router.post('/recommend', function (req,res,next) {
-    var lat = req.body.lat;
-    var lon = req.body.lon;
+    console.log('----------' + req);
+    
+    var lat = req.body.curr_lat;
+    var lon = req.body.curr_long;
     var txt = req.body.txt;
 
-    var arr = txt.split(",");
+    var arr = txt.split(" ");
+    var dollarVal ="";
+    var cusines = []
+    arr.forEach(function(value){
+        value = value.trim().toLowerCase();
+        if(value.startsWith('$')) {
+            dollarVal = value;
+        } else {
+            if(foods.has(value)) {
+                cusines.push(value);
+            }
+        }
+    });
 
+    console.log(cusines);
+    console.log(dollarVal);
 
     console.log(req.url);
+    res.render('index');
 })
 
 router.post('/order', function (req,res,next) {
