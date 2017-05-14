@@ -2,3 +2,4 @@ node_modules
 bin
 workspace.xml
 .idea
+bower_components

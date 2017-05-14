@@ -6,13 +6,19 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "binaryjs": "^0.2.1",
     "body-parser": "~1.17.1",
+    "bower": "^1.8.0",
+    "browserify": "^14.3.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "hbs": "~4.0.1",
     "morgan": "~1.8.1",
+    "recordrtc": "^5.4.1",
+    "recordrtc-nodejs": "^1.0.6",
     "serve-favicon": "~2.4.2",
-    "watson-speech": "^0.33.0"
+    "watson-speech": "^0.33.0",
+    "wav": "^1.0.1"
   }
 }
