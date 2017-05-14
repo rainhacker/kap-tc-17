@@ -49,7 +49,7 @@
             },
             onEnd: function(e) {
                 console.log('onEnd Speech event', e);
-                document.getElementById("comment").text = message;
+                document.getElementById("comment").value = message;
                 stopListening();
             }
         });
