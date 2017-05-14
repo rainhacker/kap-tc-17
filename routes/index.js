@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+//var map = new HashMap();
+
 var server = require('http'),
     url = require('url'),
     path = require('path'),
@@ -29,6 +31,25 @@ router.post('/uploadFile', function (req,res,next) {
 
 
 router.get('/voice2txt', function (req,res,next) {
+    res.render('vxt');
+})
+
+router.get('/recommend', function (req,res,next) {
+    res.render('recommend');
+})
+
+router.post('/recommend', function (req,res,next) {
+    var lat = req.body.lat;
+    var lon = req.body.lon;
+    var txt = req.body.txt;
+
+    var arr = txt.split(",");
+
+
+    console.log(req.url);
+})
+
+router.post('/order', function (req,res,next) {
     res.render('vxt');
 })
 
