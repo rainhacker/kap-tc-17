@@ -18,7 +18,7 @@
                 lat = position.coords.latitude;
         document.getElementById('curr_long').value = lng;
         document.getElementById('curr_lat').value = lat;
-        document.getElementById("order").submit();
+        document.getElementById("recommend").submit();
     }
     function showError(error) {
         switch (error.code) {
@@ -64,7 +64,7 @@
                 <p><textarea id="comment" rows="3" cols="60" wrap="SOFT"></textarea></p>
 
 
-                <input type="submit" name="submit"  value="Recommend" onclick="getLocation();"/>
+                <input type="submit" name="btnSubmit"  value="Recommend" onclick="getLocation();"/>
 
                 <input type="hidden" id="curr_long" name="curr_long">
                 <input type="hidden" id="curr_lat" name="curr_lat">
