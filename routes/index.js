@@ -61,6 +61,7 @@ router.post('/recommend', function (req,res,next) {
     var lat = req.body.curr_lat;
     var lon = req.body.curr_long;
 
+    console.log("-========================== lat" + lat + " lon " + lon);
     var txt = req.body.comment;
 
     var arr = txt.split(" ");
